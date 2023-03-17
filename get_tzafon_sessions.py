@@ -1,3 +1,7 @@
+### This script was used to collect ~300 PDF files with minutes of the Israeli Northern District Planning Committee. 
+### It currently collects the minutes, but could be alternated to collect the summarized protocol or the initial agenda.  
+### Requires installation of selenium and selenium_stealth. 
+
 import time
 from datetime import date, datetime
 from selenium import webdriver
@@ -37,11 +41,14 @@ time.sleep(5)
 driver.find_element(By.XPATH, "//div[contains(text(),'פרטי ישיבות')]").click()
 time.sleep(3)
 pdfs = driver.find_elements(By.XPATH, "//div[@class='uk-grid uk-grid-collapse']/div[4]/div/a")
-for pdf in pdfs:
+
+### If what you want is not the session minutes, but rather the protocol or session agenda, change the number in div[4]
+for pdf in pdfs[0:300]:
     try:
         pdf.click()
         time.sleep(0.1)
     except:
         time.sleep(3)
 
+        
 driver.quit()
